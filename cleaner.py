@@ -12,8 +12,11 @@ download_folder_path = 'C:/Users/sadiq/Downloads'
 def folder_scanner(path=Path()):
     for entry in path.iterdir():
         if entry.is_file():
-            print(entry)
-            filename,extention = os.path.splitext(entry)
+            full_name = os.path.basename(entry)
+            file = os.path.splitext(full_name)
+            filename = file[0]
+            extension = file[1]
+            print(f'filename: {filename}  extention: {extension}')
         elif entry.is_dir():
             folder_scanner(entry)
 
