@@ -8,6 +8,7 @@ from watchdog.events import FileSystemEventHandler
 
 #folder for keeping files
 download_folder_path = 'C:/Users/sadiq/Downloads'
+dest_folder_path = "C:/filesFromDownloads"
 
 def folder_scanner(path=Path()):
     for entry in path.iterdir():
@@ -16,12 +17,24 @@ def folder_scanner(path=Path()):
             file = os.path.splitext(full_name)
             filename = file[0]
             extension = file[1]
-            print(f'filename: {filename}  extention: {extension}')
+
+            extension_folder_path = os.path.join(dest_folder_path,extension.lstrip('.')) 
+            os.makedirs(extension_folder_path,exist_ok=True) # creating folders based on extensions
+
+
         elif entry.is_dir():
             folder_scanner(entry)
 
 
+
+# def transfer_files(filename,extension):
+#     ...
+#     extension_folder = os.path.join(dest_folder_path,extension.lstrip('.'))
+#     print(extension_folder)
+
+
 folder_scanner(path=Path(download_folder_path))
+# transfer_files(filename,extension)
 
 
     
