@@ -38,8 +38,8 @@ A simple Python script to organize files into folders based on their extensions.
 2. Follow the prompts to enter the source and destination paths:
 
     ```text
-    Enter the path to move the files from: /path/to/source
-    Enter the path to move the files to: /path/to/destination
+    Enter the path of source folder: /path/to/source
+    Enter the path of destination folder: /path/to/destination
     ```
 
 ## Example
