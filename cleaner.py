@@ -1,42 +1,37 @@
 import os
 from pathlib import Path
-import time
 import shutil
-from watchdog.observers import Observer
-from watchdog.events import FileSystemEventHandler
 
-
-#folder for keeping files
-download_folder_path = 'C:/Users/sadiq/Downloads'
-dest_folder_path = "C:/filesFromDownloads"
-
-def folder_organizer(path=Path()):
+def folder_organizer(dest_path,path=Path()):
     for entry in path.iterdir():
         if entry.is_file():
             full_name = os.path.basename(entry)
-            file = os.path.splitext(full_name)
-            filename = file[0]
-            extension = file[1]
+            filename, extension = os.path.splitext(full_name)
 
-            extension_folder_path = os.path.join(dest_folder_path,extension.lstrip('.')) 
-            os.makedirs(extension_folder_path,exist_ok=True) # creating folders based on extensions
+            extension_folder_path = os.path.join(dest_path,extension.lstrip('.')) 
+            os.makedirs(extension_folder_path,exist_ok=True) 
 
             final_file_path = os.path.join(extension_folder_path, filename + extension)
-            shutil.move(entry,final_file_path)
-            print(f'filename {filename} has been copied to {dest_folder_path}')
-
+            shutil.copy2(entry,final_file_path)
+            print(f'filenamed {filename} has been copied to {extension_folder_path}')
 
         elif entry.is_dir():
-            folder_organizer(entry)
-
-
-folder_organizer(path=Path(download_folder_path))
-
-        
+            folder_organizer(dest_path,path=Path(entry))    
 
 def main():
-    ...
+    source_path = input("Enter the path to move the file from ").strip()
+    dest_path = input(" Enter the path to move the files to ").strip()
 
+    if not os.path.exists(dest_path):
+        os.makedirs(dest_path,exist_ok=True)
+
+    folder_organizer(dest_path,path=Path(source_path))
 
 if __name__ == '__main__':
     main()
+
+
+#folder for keeping files
+download_folder_path = "C:/filesFromDownloads"
+dest_folder_path = "C:/filesFromDocuments"
+
