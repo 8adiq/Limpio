@@ -1,6 +1,6 @@
 # Folder Organizer
 
-A simple Python script to organize files into folders based on their extensions. This script copies files from a source directory to a destination directory, creating subfolders named after each file extension.
+A simple Python script to organize files into folders based on their extensions. This script moves files from a source directory to a destination directory, creating subfolders named after each file extension.
 
 ## Features
 
@@ -67,7 +67,8 @@ destination
 
 ## Note 
 
-Ensure you have the necessary read/write permissions for both the source and destination directories.
+- Ensure you have the necessary read/write permissions for both the source and destination directories.
+- This script is designed to move files. Modify shutil.move to shutil.copy2 if you want to copy files instead of moving
 
 
 ## License
