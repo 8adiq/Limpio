@@ -5,15 +5,23 @@ import shutil
 def folder_organizer(dest_path,path=Path()):
     for entry in path.iterdir():
         if entry.is_file():
-            full_name = os.path.basename(entry)
-            filename, extension = os.path.splitext(full_name)
+            if os.access(entry, os.R_OK) and os.access(dest_path, os.W_OK):
+                try:
+                    full_name = os.path.basename(entry)
+                    filename, extension = os.path.splitext(full_name)
 
-            extension_folder_path = os.path.join(dest_path,extension.lstrip('.')) 
-            os.makedirs(extension_folder_path,exist_ok=True) 
+                    extension_folder_path = os.path.join(dest_path,extension.lstrip('.')) 
+                    os.makedirs(extension_folder_path,exist_ok=True) 
 
-            final_file_path = os.path.join(extension_folder_path, filename + extension)
-            shutil.copy2(entry,final_file_path)
-            print(f'filenamed {filename} has been copied to {extension_folder_path}')
+                    final_file_path = os.path.join(extension_folder_path, filename + extension)
+                    shutil.copy2(entry,final_file_path)
+                    print(f'{filename} has been copied to {extension_folder_path}')
+                except PermissionError as e:
+                    print(f" Permission denied for copying {filename} - {e}")
+                except Exception as e:
+                    print(f" Error copying {filename} - {e}")
+            else:
+                print(f" No read/write permission for copying {filename}")
 
         elif entry.is_dir():
             folder_organizer(dest_path,path=Path(entry))    
@@ -29,6 +37,10 @@ def main():
 
 if __name__ == '__main__':
     main()
+
+
+
+
 
 
 #folder for keeping files
