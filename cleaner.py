@@ -14,7 +14,7 @@ def folder_organizer(dest_path,path=Path()):
                     os.makedirs(extension_folder_path,exist_ok=True) 
 
                     final_file_path = os.path.join(extension_folder_path, filename + extension)
-                    shutil.copy2(entry,final_file_path)
+                    shutil.move(entry,final_file_path)
                     print(f'{filename} has been copied to {extension_folder_path}')
                 except PermissionError as e:
                     print(f" Permission denied for copying {filename} - {e}")
@@ -27,8 +27,8 @@ def folder_organizer(dest_path,path=Path()):
             folder_organizer(dest_path,path=Path(entry))    
 
 def main():
-    source_path = input("Enter the path to move the file from ").strip()
-    dest_path = input(" Enter the path to move the files to ").strip()
+    source_path = input("Enter the path of source folder ").strip()
+    dest_path = input(" Enter the path of destination folder ").strip()
 
     if not os.path.exists(dest_path):
         os.makedirs(dest_path,exist_ok=True)
