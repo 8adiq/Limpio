@@ -39,11 +39,3 @@ if __name__ == '__main__':
     main()
 
 
-
-
-
-
-#folder for keeping files
-download_folder_path = "C:/filesFromDownloads"
-dest_folder_path = "C:/filesFromDocuments"
-
