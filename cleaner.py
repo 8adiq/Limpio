@@ -2,7 +2,10 @@ import os
 from pathlib import Path
 import shutil
 
-def folder_organizer(dest_path,path=Path()):
+def folder_organizer(dest_path,path=None):
+
+    if path is None:
+        path = Path()
     for entry in path.iterdir():
         if entry.is_file():
             if os.access(entry, os.R_OK) and os.access(dest_path, os.W_OK):
@@ -39,3 +42,4 @@ if __name__ == '__main__':
     main()
 
 
+"C:/filesFromDownloads"
